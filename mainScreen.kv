@@ -1,0 +1,39 @@
+MDScreen:
+    name: 'MainScreen'
+    md_bg_color: app.theme_cls.surfaceColor
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDBoxLayout:
+            size_hint: (1, 0.2)
+            orientation: 'horizontal'
+            padding: '10dp'
+            MDCard:
+                radius: '10dp'
+                padding: '10dp'
+                line_color: (1,0,1,1)
+
+                MDLabel:
+                    text: 'Aplicación de Tecnología'
+                    halign: 'center'
+                    pos_hint: {"center_y": 0.5}
+                MDSwitch:
+                    pos_hint: {"center_y": 0.5}
+                    on_active: 
+                        app.change_style(*args)
+
+        MDGridLayout:
+            cols:3
+            size_hint: (1,0.8)
+    MDButton:
+        style: "outlined"
+        pos_hint: {"center_x": .5, "center_y": .5}
+        on_release:
+            app.Hola_mundo(*args)
+        MDButtonIcon:
+            icon: "plus"
+
+        MDButtonText:
+            pos_hint: {"center_y":0.5}
+            text: "Realizar Examen"     
+
+

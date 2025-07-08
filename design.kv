@@ -1,0 +1,236 @@
+#: import RiseInTransition kivy.uix.screenmanager.RiseInTransition
+#: import SlideTransition kivy.uix.screenmanager.SlideTransition
+#: import MDScrollView kivymd.uix.scrollview.MDScrollView
+<ElementCard@MDCard>:
+    style: 'outlined'
+    radius: '10dp'
+    spacing: '10dp'
+    padding: '10dp'
+    image: ''
+    text: ''
+    orientation: 'vertical'
+    ripple_behavior: True
+    on_release: 
+        app.root.transition = RiseInTransition()
+    image:
+        root.image
+        # halign: 'center'
+    MDBoxLayout:
+        orientation: 'vertical'
+        MDLabel:
+            text: root.text
+            halign: "center"
+
+<CustomizeScreen@MDBoxLayout>:
+    orientation: 'vertical'
+    text: ''
+    MDScrollView:
+        do_scroll_x: False
+        orientation: "vertical"
+        adaptive_height: True
+        MDBoxLayout:
+            orientation: "vertical"
+            adaptive_height: True
+            md_bg_color: self.theme_cls.backgroundColor
+            MDGridLayout:
+                rows:5
+                # size_hint: 1, None
+                padding: ['10dp','10dp','10dp','10dp']
+                spacing: "10dp"
+                pos_hint: {'center_x':0.5, 'center_y':0.5}
+                MDCard:
+                    orientation: 'vertical'
+                    size_hint: (1, None)
+                    radius: '10dp'
+                    padding: '10dp'
+                    style: "outlined"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    # height: 300
+                    adaptive_height: True
+                    MDLabel:
+                        halign: 'center'
+                        valign: 'top'
+                        pos_hint: {"center_y": 0.5}
+                        text: root.text
+                        adaptive_height: True
+                        theme_text_color: 'Primary'
+                        # text_color: (41, 135, 66, 0.5)
+                MDCard:
+                    id: A
+                    orientation: 'vertical'
+                    size_hint: (1, None)
+                    radius: '10dp'
+                    padding: '10dp'
+                    style: "outlined"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    adaptive_height: True
+                    ripple_behavior: True
+                    on_release:
+                        app.answer_question_A(*args)
+                    # MDIcon:
+                    #     icon: "plus"
+                    MDLabel:
+                        id: A_text
+                        halign: 'left'
+                        valign: 'top'
+                        pos_hint: {"center_y": 0.5}
+                        adaptive_height: True
+                        theme_text_color: 'Primary'
+                        text: "A"
+                MDCard:
+                    id: B
+                    orientation: 'vertical'
+                    size_hint: (1, None)
+                    radius: '10dp'
+                    padding: '10dp'
+                    style: "outlined"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    adaptive_height: True
+                    ripple_behavior: True
+                    on_release:
+                        app.answer_question_B(*args)
+                    # MDIcon:
+                    #     icon: "plus"
+                    MDLabel:
+                        id: B_text
+                        halign: 'left'
+                        valign: 'top'
+                        pos_hint: {"center_y": 0.5}
+                        adaptive_height: True
+                        theme_text_color: 'Primary'
+                        text: "B"
+                MDCard:
+                    id: C
+                    orientation: 'vertical'
+                    size_hint: (1, None)
+                    radius: '10dp'
+                    padding: '10dp'
+                    style: "outlined"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    adaptive_height: True
+                    ripple_behavior: True
+                    on_release:
+                        app.answer_question_C(*args)
+                    # MDIcon:
+                    #     icon: "plus"
+                    MDLabel:
+                        id: C_text
+                        halign: 'left'
+                        valign: 'top'
+                        pos_hint: {"center_y": 0.5}
+                        adaptive_height: True
+                        theme_text_color: 'Primary'
+                        text: "C"
+                MDButton:
+                    style: "outlined"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    on_release: 
+                        app.root.current = 'MainScreen'
+                        app.root.transition = SlideTransition(direction='left')    
+                    MDButtonIcon:
+                        icon: "arrow-left"
+                    MDButtonText:
+                        pos_hint: {"center_y":0.5}
+                        text: "Abandonar"
+<ui>:        
+    MDScreen:
+        id: SplashScreen
+        name: "SplashScreen"
+        on_enter: 
+            app.on_start()
+            app.root.current = 'MainScreen'
+        BoxLayout:
+            pos_hint: {'center_y': .3, 'center_x': .5}
+            padding: '10p'
+            size_hint_x: .7
+        MDCircularProgressIndicator:
+            size_hint: None, None
+            size: "48dp", "48dp"
+            pos_hint: {'center_x': .5, 'center_y': .1}
+        FloatLayout:
+            source: 'example.gif'
+            allow_stretch: True
+            anim_delay: 0
+            #anim loop 1
+            anim_reset: True     
+        Image:
+            source: 'Imagenes/dron.gif'
+    MDScreen:
+        id: MainScreen
+        name: 'MainScreen'
+        md_bg_color: app.theme_cls.surfaceColor
+        MDBoxLayout:
+            orientation: 'vertical'
+            spacing: "12dp"
+            halign: "center"
+            MDBoxLayout:
+                size_hint: (1, 0.2)
+                orientation: 'horizontal'
+                padding: '10dp'
+                MDCard:
+                    radius: '10dp'
+                    padding: '10dp'
+                    style: "outlined"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    MDLabel:
+                        text: 'BIENVENIDO'
+                        halign: 'center'
+                        pos_hint: {"center_y": 0.5}
+                    MDSwitch:
+                        pos_hint: {"center_y": 0.5}
+                        on_active: 
+                            app.change_style(*args)
+            MDGridLayout:
+                rows:3
+                size_hint: (1,0.8)
+                padding: ['10dp','10dp','10dp','10dp']
+                spacing: "10dp"
+                pos_hint: {'center_x':0.5, 'center_y':0.5}
+                ElementCard:
+                    text: 'Realizar Examén'
+                    # image: 'imagenes/dron.gif'
+                    on_release: 
+                        root.current = "Examén"
+                    MDIcon:
+                        icon: "plus"
+                        pos_hint: {'center_x':0.5}
+                ElementCard:
+                    text: 'Revisar mi progreso'
+                    # image: 'imagenes/dron.gif'
+                    on_release: 
+                        root.current = "Examén"
+                    MDIcon:
+                        icon: "plus"
+                        pos_hint: {'center_x':0.5}
+                ElementCard:
+                    text: "Estudio Libre" 
+                    # image: 'imagenes/dron.gif'
+                    on_release: 
+                        root.current = "Estudio Libre"
+                    MDIcon:
+                        icon: "plus"
+                        pos_hint: {'center_x':0.5}
+    MDScreen:
+        id: ExamenScreen
+        name: "Estudio Libre"
+        on_enter:
+            app.load_random_question(ExamenScreen.name)
+            app.next_question(ExamenScreen.name)
+        CustomizeScreen:
+            id: Pregunta
+            text: ""          
+    MDScreen:
+        id: EstudioLibreScreen
+        name: "Examén"
+        on_enter:
+            app.load_random_question(EstudioLibreScreen.name)
+            app.next_question(EstudioLibreScreen.name)
+        CustomizeScreen:
+            id: Examen
+            text: ""
+    MDScreen:
+        id: ResultadosExamenScreen
+        name: "Resultado Examén"
+        MDLabel:
+            id: ResultadosExamen
+            text: ""
