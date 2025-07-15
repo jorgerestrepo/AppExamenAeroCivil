@@ -10,7 +10,8 @@
     text: ''
     orientation: 'vertical'
     ripple_behavior: True
-    on_release: 
+    on_release:
+        app.play_sound(*args)
         app.root.transition = RiseInTransition()
     image:
         root.image
@@ -24,14 +25,14 @@
 <CustomizeScreen@MDBoxLayout>:
     orientation: 'vertical'
     text: ''
+    md_bg_color: app.theme_cls.surfaceColor
     MDScrollView:
         do_scroll_x: False
         orientation: "vertical"
-        adaptive_height: True
         MDBoxLayout:
+            id: main_scroll
             orientation: "vertical"
             adaptive_height: True
-            md_bg_color: self.theme_cls.backgroundColor
             MDGridLayout:
                 rows:5
                 # size_hint: 1, None
@@ -124,7 +125,8 @@
                 MDButton:
                     style: "outlined"
                     pos_hint: {"center_x": .5, "center_y": .5}
-                    on_release: 
+                    on_release:
+                        app.play_sound(*args) 
                         app.root.current = 'MainScreen'
                         app.root.transition = SlideTransition(direction='left')    
                     MDButtonIcon:
@@ -190,6 +192,7 @@
                     text: 'Realizar Examén'
                     # image: 'imagenes/dron.gif'
                     on_release: 
+                        app.play_sound(*args)
                         root.current = "Examén"
                     MDIcon:
                         icon: "plus"
@@ -198,7 +201,8 @@
                     text: 'Revisar mi progreso'
                     # image: 'imagenes/dron.gif'
                     on_release: 
-                        root.current = "Examén"
+                        app.play_sound(*args)
+                        root.current = "Mis Resultados"
                     MDIcon:
                         icon: "plus"
                         pos_hint: {'center_x':0.5}
@@ -206,6 +210,7 @@
                     text: "Estudio Libre" 
                     # image: 'imagenes/dron.gif'
                     on_release: 
+                        app.play_sound(*args)
                         root.current = "Estudio Libre"
                     MDIcon:
                         icon: "plus"
@@ -231,6 +236,98 @@
     MDScreen:
         id: ResultadosExamenScreen
         name: "Resultado Examén"
-        MDLabel:
-            id: ResultadosExamen
-            text: ""
+        md_bg_color: app.theme_cls.surfaceColor
+        MDBoxLayout:
+            spacing: "12dp"
+            halign: "center"
+            orientation: "vertical"
+            md_bg_color: self.theme_cls.backgroundColor
+            MDBoxLayout:
+                size_hint: (1, 0.2)
+                orientation: 'vertical'
+                padding: '10dp'
+                pos_hint:{"center_x": .5, "center_y": .5}
+                MDCard:
+                    radius: '10dp'
+                    padding: '10dp'
+                    style: "outlined"
+                    pos_hint: {"center_x": .5, "center_y": .5}
+                    MDLabel:
+                        text: 'RESULTADOS'
+                        halign: 'center'
+                        pos_hint: {"center_y": 0.5}
+            MDBoxLayout:
+                size_hint: (1, 0.8)
+                orientation: 'vertical'
+                padding: '10dp'
+                pos_hint:{"center_x": .5, "center_y": .5}
+                MDGridLayout:
+                    cols: 1
+                    rows: 3
+                    padding: ['10dp','10dp','10dp','10dp']
+                    spacing: "10dp"
+                    pos_hint: {'center_x':0.5, 'center_y':0.5}
+                    MDCard:
+                        radius: '10dp'
+                        padding: '10dp'
+                        style: "outlined"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        MDLabel:
+                            id: ResultadosExamen
+                            text: ''
+                            halign: 'center'
+                            pos_hint: {"center_y": 0.5}
+                    MDButton:
+                        style: "outlined"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        halign: "center"
+                        on_release: 
+                            app.play_sound(*args)
+                            app.root.current = 'Mis Resultados'
+                            app.root.transition = SlideTransition(direction='left')    
+                        MDButtonIcon:
+                            icon: "arrow-right"
+                        MDButtonText:
+                            pos_hint: {"center_y":0.5}
+                            text: "Historico Resultados"
+                    MDButton:
+                        style: "outlined"
+                        pos_hint: {"center_x": .5, "center_y": .5}
+                        on_release: 
+                            app.play_sound(*args)
+                            app.root.current = 'MainScreen'
+                            app.root.transition = SlideTransition(direction='left')    
+                        MDButtonIcon:
+                            icon: "arrow-left"
+                        MDButtonText:
+                            pos_hint: {"center_y":0.5}
+                            text: "Regresar"
+    MDScreen:
+        id: MisResultados
+        name: "Mis Resultados"
+        md_bg_color: app.theme_cls.surfaceColor
+        on_enter:
+            app.grafica_progreso()
+        BoxLayout:
+            id: box
+            size_hint_y: .8
+            pos_hint: {"top": 1.}
+            MDLabel:
+                id: MisResultadosLabel
+                text: ""
+                halign: "center"
+                pos_hint: {"center_x": .5, "center_y": .5}
+        BoxLayout:
+            size_hint_y: .2
+            MDButton:
+                style: "outlined"
+                pos_hint: {"center_x": .5, "center_y": .5}
+                on_release: 
+                    app.play_sound(*args)
+                    app.root.current = 'MainScreen'
+                    app.root.transition = SlideTransition(direction='left')    
+                MDButtonIcon:
+                    icon: "arrow-left"
+                MDButtonText:
+                    pos_hint: {"center_y":0.5}
+                    text: "Regresar"
